@@ -1,5 +1,6 @@
 package com.neppplus.landapp.datas
 
+import java.io.Serializable
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -7,7 +8,7 @@ class Room (
     val price : Int,
     val address:String,
     val floor : Int,
-    val description:String)
+    val description:String) :Serializable
 {
 
     fun getFormattedPrice():String {

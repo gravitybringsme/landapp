@@ -1,5 +1,6 @@
 package com.neppplus.landapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var mRoomAdapter : RoomAdapter
 
+    //https://trello.com/b/gpMbw16H/%EC%BD%94%EB%94%A9%ED%8B%B0%EC%B2%98-%EC%A7%80%EB%8B%88-%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -37,6 +39,17 @@ class MainActivity : AppCompatActivity() {
         mRoomList.add( Room(24500, "서울시 서대문구9", 8, "서대문구의 반지하 2억 4500만원 방입니다."))
 
         mRoomAdapter = RoomAdapter(this, R.layout.room_list_item, mRoomList)
-        findViewById<ListView>(R.id.roomListView).adapter = mRoomAdapter
+
+        val roomListView = findViewById<ListView>(R.id.roomListView)
+        roomListView.adapter = mRoomAdapter
+        roomListView.setOnItemClickListener { parent, view, position, id ->
+
+            val clickedRoom = mRoomList[position]
+            val myIntent = Intent(this, ViewRoomDetailActivity::class.java)
+
+            myIntent.putExtra("roomPrice", clickedRoom)
+            startActivity(myIntent)
+
+        }
     }
 }
